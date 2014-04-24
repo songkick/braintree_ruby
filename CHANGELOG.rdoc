@@ -1,4 +1,7 @@
-== 2.34.0                     
+== 2.34.0.0
+* Update version number
+
+== 2.34.0
 * Added paypal specific fields to transaction calls               
 * Added SettlementPending, SettlementDeclined transaction statuses
 
@@ -25,6 +28,9 @@
 == 2.30.1
 * Make webhook parsing more robust with newlines
 * Add messages to InvalidSignature exceptions
+
+== 2.30.0.0
+* Configuration to set request time out
 
 == 2.30.0
 * Include Dispute information on Transaction

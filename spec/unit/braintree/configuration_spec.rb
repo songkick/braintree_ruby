@@ -283,6 +283,18 @@ describe Braintree::Configuration do
     end
   end
 
+  describe 'http_timeout' do
+    it 'should return the http timeout' do
+      config = Braintree::Configuration.new(:http_timeout => 1)
+      config.http_timeout.should == 1
+    end
+
+    it 'should set a default of 60' do
+      config = Braintree::Configuration.new(:http_timeout => nil)
+      config.http_timeout.should == 60
+    end
+  end
+
   describe "inspect" do
     it "masks the private_key" do
       config = Braintree::Configuration.new(:private_key => "secret_key")

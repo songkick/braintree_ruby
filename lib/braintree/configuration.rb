@@ -5,7 +5,7 @@ module Braintree
     DEFAULT_ENDPOINT = "api" # :nodoc:
 
     class << self
-      attr_writer :custom_user_agent, :endpoint, :logger, :merchant_id, :public_key, :private_key
+      attr_writer :custom_user_agent, :endpoint, :logger, :merchant_id, :public_key, :private_key, :http_timeout
     end
     attr_reader :merchant_id, :public_key, :private_key
 
@@ -35,6 +35,7 @@ module Braintree
     def self.instantiate # :nodoc:
       config = new(
         :custom_user_agent => @custom_user_agent,
+        :http_timeout => @http_timeout,
         :endpoint => @endpoint,
         :environment => environment,
         :logger => logger,
@@ -57,7 +58,7 @@ module Braintree
     end
 
     def initialize(options = {})
-      [:endpoint, :environment, :public_key, :private_key, :custom_user_agent, :logger].each do |attr|
+      [:endpoint, :environment, :public_key, :private_key, :custom_user_agent, :http_timeout, :logger].each do |attr|
         instance_variable_set "@#{attr}", options[attr]
       end
 
@@ -143,6 +144,10 @@ module Braintree
     def user_agent # :nodoc:
       base_user_agent = "Braintree Ruby Gem #{Braintree::Version::String}"
       @custom_user_agent ? "#{base_user_agent} (#{@custom_user_agent})" : base_user_agent
+    end
+
+    def http_timeout
+      @http_timeout || 60
     end
 
     def self._default_logger # :nodoc:
